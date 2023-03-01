@@ -1,0 +1,28 @@
+.TH FLOW 1
+.SH NAME
+flow \- reads given .pcap file with captured network communication and exports NetFlow v5 packets to collector based on data read.
+.SH SYNOPSIS
+.B flow
+[\fR\-f\fR \fI<filename>\fR][\fR\-c\fR \fI<netflow_collector>\fR[\fI:<port>\fR]\fR][\fR\-a\fR \fI<active_timer>\fR][\fR\-i\fR \fI<inactive_timer>\fR][\fR\-m\fR \fI<count>\fR]
+.SH DESCRIPTION
+.B flow 
+starts a NetFlow v5 exporter. This application reads informations about captured network communication from .pcap file or STDIN. The tool then analysis given information and creates Netflow v5 output 
+packets, which are then send directly to collector. Processing method can be changed by applying aditional options. Application supports protocols TCP, UDP & ICMP. Application was created as a University project.
+.SH OPTIONS
+.TP
+.BR \-f \fI\fR
+Expects name of pcap file with captured communication. If not set, reads from STDIN.
+.TP
+.BR \-c\fI\fR
+Expects [hostname or IP address] and port of the Netflow collector. If not set, default values are: 127.0.0.1:2055. 
+.TP
+.BR \-a\fI\fR 
+Sets this interval in \fBseconds\fR on every newly found flow. After the time runs out on flow, it is exported to the collector. If not set, default value is: 60.
+.TP
+.BR \-i\fI\fR
+Sets this interval in \fBseconds\fR on every newly found flow. If there is no new packet received until the time runs out, flow is exported. If not set, default value is: 10.
+.TP
+.BR \-m\fI\fR
+Sets the maximum amount of flows stored in the memory at the time. If the maximum+1 is reached, the oldest (first found) flow is exported. If not set, default value is: 1024.
+.SH AUTHOR
+This application was created by Martin Pech (https://mpech.net/developer)
